@@ -5,7 +5,8 @@ from .models import Product
 
 load_dotenv()
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key) if api_key else None
 
 def get_ai_response(user_query, chat_history=[]):
     # Fetch real product data for accurate context
@@ -35,6 +36,9 @@ def get_ai_response(user_query, chat_history=[]):
     for msg in chat_history:
         messages.append(msg)
     messages.append({"role": "user", "content": user_query})
+
+    if client is None:
+        return "The AI assistant is not configured yet. Please add OPENAI_API_KEY in the backend environment variables."
 
     try:
         response = client.chat.completions.create(
