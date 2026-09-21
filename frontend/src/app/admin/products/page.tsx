@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { apiUrl } from "@/lib/api";
 
 interface Product {
   id?: number;
@@ -32,7 +33,7 @@ export default function AdminProducts() {
     stock: 10
   });
 
-  const BASE_URL = "http://localhost:8000/api/products/";
+  const BASE_URL = apiUrl("/api/products/");
 
   useEffect(() => {
     fetchProducts();

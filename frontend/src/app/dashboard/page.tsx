@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import { apiUrl } from "@/lib/api";
 
 interface Product {
   id: number;
@@ -29,7 +30,7 @@ export default function Dashboard() {
       }
 
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/products/", {
+        const response = await axios.get(apiUrl("/api/products/"), {
           headers: {
             Authorization: `Bearer ${token}`,
           },

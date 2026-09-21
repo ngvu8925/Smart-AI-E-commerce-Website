@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { apiUrl } from "@/lib/api";
 
 export default function AIChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,7 @@ export default function AIChatbot() {
     setIsLoading(true);
 
     try {
-      const res = await fetch("http://localhost:8000/api/ai/ask/", {
+      const res = await fetch(apiUrl("/api/ai/ask/"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

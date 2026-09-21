@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, useEffect, use } from "react";
 import { useCart } from "../context/CartContext";
+import { apiUrl } from "@/lib/api";
 
 export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
   const { category } = use(params);
@@ -26,7 +27,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/products/?category=${formattedCategory}`);
+        const res = await fetch(apiUrl(`/api/products/?category=${formattedCategory}`));
         const data = await res.json();
         setProducts(data);
       } catch (err) {
@@ -47,7 +48,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
     }
     
     try {
-      const res = await fetch("http://localhost:8000/api/order/checkout/", {
+      const res = await fetch(apiUrl("/api/order/checkout/"), {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`

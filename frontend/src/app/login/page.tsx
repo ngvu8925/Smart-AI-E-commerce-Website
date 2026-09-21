@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { apiUrl } from "@/lib/api";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
@@ -15,7 +16,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const url = isRegistering ? "http://127.0.0.1:8000/api/register/" : "http://127.0.0.1:8000/api/login/";
+    const url = isRegistering ? apiUrl("/api/register/") : apiUrl("/api/login/");
     
     try {
       if (isRegistering) {

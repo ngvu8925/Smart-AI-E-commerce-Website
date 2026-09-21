@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, createContext, useContext } from "react";
+import { apiUrl } from "@/lib/api";
 
 interface CartItem {
   id: number;
@@ -31,7 +32,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const token = localStorage.getItem("access_token");
     if (!token) return;
     try {
-      const res = await fetch("http://localhost:8000/api/cart/", {
+      const res = await fetch(apiUrl("/api/cart/"), {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -50,7 +51,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     try {
-      const res = await fetch("http://localhost:8000/api/cart/add/", {
+      const res = await fetch(apiUrl("/api/cart/add/"), {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -70,7 +71,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     const token = localStorage.getItem("access_token");
     if (!token) return;
     try {
-      await fetch(`http://localhost:8000/api/cart/remove/${itemId}/`, {
+      await fetch(apiUrl(`/api/cart/remove/${itemId}/`), {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` }
       });
